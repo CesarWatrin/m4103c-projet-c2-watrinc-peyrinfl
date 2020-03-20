@@ -39,6 +39,9 @@ function supprimer_recherche(elt) {
   // Suppression de l'élement dans le tableau de recherche
   var ind = recherches.indexOf(elt);
   recherches.splice(ind, 1);
+
+  // Réinitialisation de la zone de zone_saisie
+  zone_saisie.value = "";
 }
 
 
