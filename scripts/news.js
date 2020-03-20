@@ -21,8 +21,13 @@ function ajouter_recherche() {
       titrerecherche[i].setAttribute("onclick", "selectionner_recherche(this)");
       iconecroix[i].setAttribute("onclick", "supprimer_recherche(this)");
     }
+    var etat = toJSON();
+    localStorage.setItem("recherches",etat);
+    var monobjet_json = localStorage.getItem("recherches");
+    var monobjet = JSON.parse(monobjet_json);
+    // Affichage dans la console
+    console.log(monobjet);
   }
-
 }
 
 function supprimer_recherche(elt) {
@@ -65,4 +70,22 @@ function sauver_nouvelle(elt) {
 
 function supprimer_nouvelle(elt) {
 	//TODO ...
+}
+
+function toJSON() {
+  var json = {};
+  var recherches = [];
+
+  for (var i = 0; i < titrerecherche.length; i++) {
+		var j = i + 1;
+		var recherche = new Object();
+    recherche.id = "recherche" + j;
+    recherche.val = titrerecherche[i].textContent;
+    recherches.push(recherche);
+		j++;
+  }
+  json = {"recherches": recherches};
+  json = JSON.stringify(json);
+
+  return json;
 }
