@@ -25,8 +25,14 @@ function ajouter_recherche() {
 
 
 function supprimer_recherche(elt) {
-	parent = elt.parentElement;
-  parent.removeChild(elt);
+  // Suppresion de l'élement html correspondant à la recherche
+	var parent = elt.parentElement;
+  var upParent = parent.parentElement;
+  upParent.removeChild(parent);
+
+  // Suppression de l'élement dans le tableau de recherche
+  var ind = recherches.indexOf(elt);
+  recherches.splice(ind, 1);
 }
 
 
