@@ -12,17 +12,18 @@ var iconecroix=document.getElementsByClassName("icone-croix");
 
 function ajouter_recherche() {
   var val = zone_saisie.value;
+  //si la recherche n'existe pas
   if (recherches.indexOf(val) == -1) {
     recherches.push(val);
     recherchesstockees.innerHTML += '<p class="titre-recherche"><label>' + val + '</label><img src="img/croix30.jpg" class="icone-croix"/></p>';
     for (var i = 0; i < titrerecherche.length; i++) {
+      // ajout des evenements
       titrerecherche[i].setAttribute("onclick", "selectionner_recherche(this)");
       iconecroix[i].setAttribute("onclick", "supprimer_recherche(this)");
     }
   }
 
 }
-
 
 function supprimer_recherche(elt) {
   // Suppresion de l'élement html correspondant à la recherche
