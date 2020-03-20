@@ -9,13 +9,15 @@ var zone_saisie=document.getElementById("zone_saisie");
 var recherchesstockees=document.getElementById("recherches-stockees");
 var titrerecherche=document.getElementsByClassName("titre-recherche");
 var iconecroix=document.getElementsByClassName("icone-croix");
+var nb = 0;
 
 function ajouter_recherche() {
   var val = zone_saisie.value;
   //si la recherche n'existe pas
-  if (recherches.indexOf(val) == -1) {
+  if (recherches.indexOf(val) == -1 && val != "") {
     recherches.push(val);
     recherchesstockees.innerHTML += '<p class="titre-recherche"><label>' + val + '</label><img src="img/croix30.jpg" class="icone-croix"/></p>';
+    nb++;
     for (var i = 0; i < titrerecherche.length; i++) {
       // ajout des evenements
       titrerecherche[i].setAttribute("onclick", "selectionner_recherche(this)");
@@ -23,10 +25,6 @@ function ajouter_recherche() {
     }
     var etat = toJSON();
     localStorage.setItem("recherches",etat);
-    var monobjet_json = localStorage.getItem("recherches");
-    var monobjet = JSON.parse(monobjet_json);
-    // Affichage dans la console
-    console.log(monobjet);
   }
 }
 
@@ -40,8 +38,9 @@ function supprimer_recherche(elt) {
   var ind = recherches.indexOf(elt);
   recherches.splice(ind, 1);
 
-  // Réinitialisation de la zone de zone_saisie
-  zone_saisie.value = "";
+  nb--;
+  var etat = toJSON();
+  localStorage.setItem("recherches",etat);
 }
 
 
@@ -52,7 +51,14 @@ function selectionner_recherche(elt) {
 
 
 function init() {
-	//TODO ...
+  var mesRecherches = localStorage.getItem("recherches");
+  var object = JSON.parse(mesRecherches);
+  nb += object.nombre;
+  for (var i = 0; i < object.nombre; i++) {
+      recherchesstockees.innerHTML += '<p class="titre-recherche"><label>' + object.recherches[i].val + '</label><img src="img/croix30.jpg" class="icone-croix"/></p>';
+      titrerecherche[i].setAttribute("onclick", "selectionner_recherche(this)");
+      iconecroix[i].setAttribute("onclick", "supprimer_recherche(this)");
+  }
 }
 
 
@@ -87,7 +93,7 @@ function toJSON() {
     recherches.push(recherche);
 		j++;
   }
-  json = {"recherches": recherches};
+  json = {"recherches": recherches, "nombre": nb};
   json = JSON.stringify(json);
 
   return json;
