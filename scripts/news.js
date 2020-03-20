@@ -4,10 +4,23 @@ var recherches = [];
 var recherche_courante;
 // Tableau d'objets de type resultats (avec titre, date et url)
 var recherche_courante_news = [];
-
+// Variables diverses
+var zone_saisie=document.getElementById("zone_saisie");
+var recherchesstockees=document.getElementById("recherches-stockees");
+var titrerecherche=document.getElementsByClassName("titre-recherche");
+var iconecroix=document.getElementsByClassName("icone-croix");
 
 function ajouter_recherche() {
-	//TODO ...
+  var val = zone_saisie.value;
+  if (recherches.indexOf(val) == -1) {
+    recherches.push(val);
+    recherchesstockees.innerHTML = '<p class="titre-recherche"><label>' + val + '</label><img src="img/croix30.jpg" class="icone-croix"/></p>';
+    for (var i = 0; i < titrerecherche.length; i++) {
+      titrerecherche[i].setAttribute("onclick", "selectionner_recherche(this)");
+      iconecroix[i].setAttribute("onclick", "supprimer_recherche(this)");
+    }
+  }
+
 }
 
 
