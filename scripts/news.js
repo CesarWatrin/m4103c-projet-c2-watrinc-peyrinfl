@@ -12,7 +12,8 @@ function ajouter_recherche() {
 
 
 function supprimer_recherche(elt) {
-	//TODO ...
+	parent = elt.parentElement;
+  parent.removeChild(elt);
 }
 
 
@@ -44,4 +45,3 @@ function sauver_nouvelle(elt) {
 function supprimer_nouvelle(elt) {
 	//TODO ...
 }
-
