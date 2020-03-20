@@ -14,7 +14,7 @@ function ajouter_recherche() {
   var val = zone_saisie.value;
   if (recherches.indexOf(val) == -1) {
     recherches.push(val);
-    recherchesstockees.innerHTML = '<p class="titre-recherche"><label>' + val + '</label><img src="img/croix30.jpg" class="icone-croix"/></p>';
+    recherchesstockees.innerHTML += '<p class="titre-recherche"><label>' + val + '</label><img src="img/croix30.jpg" class="icone-croix"/></p>';
     for (var i = 0; i < titrerecherche.length; i++) {
       titrerecherche[i].setAttribute("onclick", "selectionner_recherche(this)");
       iconecroix[i].setAttribute("onclick", "supprimer_recherche(this)");
@@ -37,7 +37,8 @@ function supprimer_recherche(elt) {
 
 
 function selectionner_recherche(elt) {
-	//TODO ...
+  zone_saisie.value = elt.textContent;
+  recherche_courante = elt.textContent;
 }
 
 
