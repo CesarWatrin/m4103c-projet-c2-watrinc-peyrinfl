@@ -63,15 +63,15 @@ function init() {
 
 
 function rechercher_nouvelles() {
-	var div_recherches = document.getElementById("resultats");
-  div_recherches.innerHTML = "";
+	var div_resultats = document.getElementById("resultats");
+  div_resultats.innerHTML = "";
 
   var div_wait = document.getElementById("wait");
   div_wait.style.display = "block";
 
   var res = document.getElementById('zone_saisie').value;
   res = encodeURIComponent(res);
-  
+
   // xhr.open("GET", "calcul-serveur.php?data=" + resultat, true);
   // xhr.send(null);
   ajax_get_request(maj_resultats, "https://carl-vincent.fr/search-internships.php?data=grenoble?data=" + res, true);
@@ -82,9 +82,7 @@ function maj_resultats(res) {
   var div_wait = document.getElementById("wait");
   div_wait.style.display = "none";
 
-  for (var i = 0; i < res.length; i++) {
 
-  }
 }
 
 
@@ -136,3 +134,13 @@ function ajax_get_request(callback, url, async) {
       callback(xhr.responseText);
     }
   };
+
+  // Initialisation de l'objet puis envoi de la requête
+  xhr.open("GET", url, async);
+  xhr.send();
+
+  /*
+    Pour plus de détails sur l'objet XMLHttpRequest (XHR) et sur les appels AJAX :
+    https://openclassrooms.com/fr/courses/245710-ajax-et-lechange-de-donnees-en-javascript/244798-lobjet-xmlhttprequest
+  */
+}
