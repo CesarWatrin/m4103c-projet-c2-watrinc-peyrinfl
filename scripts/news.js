@@ -72,13 +72,9 @@ function rechercher_nouvelles() {
   var res = zone_saisie.value;
   res = encodeURIComponent(res);
 
-<<<<<<< HEAD
   // xhr.open("GET", "calcul-serveur.php?data=" + resultat, true);
   // xhr.send(null);
   ajax_get_request(maj_resultats, "https://carl-vincent.fr/search-internships.php?data=" + res, true);
-=======
-  ajax_get_request(maj_resultats, "https://carl-vincent.fr/search-internships.php?data=grenoble?data=" + res, true);
->>>>>>> 7e4d062b4658385480f1bf1cf352c18416c3f5dc
 }
 
 
@@ -86,8 +82,8 @@ function maj_resultats(res) {
   div_wait.style.display = "none";
   var object = JSON.parse(res);
 
-  for (var i = 0; i < res.length; i++) {
-    div_resultats.innerHTML += '<p class="titre_result"><a class="titre_news" href="'+ object[i].url + '" target="_blank">'+ object[i].titre + '</a><span class="date_news">'+ formatDate(object[i].date) + '</span><span class="action_news" onclick="sauver_nouvelle(this)"><img src="images/horloge15.jpg"/></span></p>';
+  for (var i = 0; i < object.length; i++) {
+    div_resultats.innerHTML += '<p class="titre_result"><a class="titre_news" href="'+ object[i].url + '" target="_blank">'+ object[i].titre + '</a><span class="date_news">'+ formatDate(object[i].date) + '</span><span class="action_news" onclick="sauver_nouvelle(this)"><img src="img/horloge15.jpg"/></span></p>';
   }
 }
 
