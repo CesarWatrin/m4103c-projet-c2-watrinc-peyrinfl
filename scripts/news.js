@@ -72,9 +72,13 @@ function rechercher_nouvelles() {
   var res = zone_saisie.value;
   res = encodeURIComponent(res);
 
+<<<<<<< HEAD
   // xhr.open("GET", "calcul-serveur.php?data=" + resultat, true);
   // xhr.send(null);
   ajax_get_request(maj_resultats, "https://carl-vincent.fr/search-internships.php?data=" + res, true);
+=======
+  ajax_get_request(maj_resultats, "https://carl-vincent.fr/search-internships.php?data=grenoble?data=" + res, true);
+>>>>>>> 7e4d062b4658385480f1bf1cf352c18416c3f5dc
 }
 
 
