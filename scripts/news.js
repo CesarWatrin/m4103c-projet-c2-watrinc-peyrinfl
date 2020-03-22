@@ -10,6 +10,7 @@ var recherchesstockees=document.getElementById("recherches-stockees");
 var titrerecherche=document.getElementsByClassName("titre-recherche");
 var iconecroix=document.getElementsByClassName("icone-croix");
 var div_resultats = document.getElementById("resultats");
+var action_news = document.getElementsByClassName('action_news')
 var div_wait = document.getElementById("wait");
 var nb = 0;
 
@@ -42,7 +43,12 @@ function supprimer_recherche(elt) {
 
   nb--;
   var etat = toJSON();
-  localStorage.setItem("recherches",etat);
+  if (recherches!=0) {
+    localStorage.setItem("recherches",etat);
+  } else {
+    localStorage.removeItem("recherches");
+  }
+  // localStorage.setItem("recherches",etat);
 }
 
 
@@ -60,6 +66,7 @@ function init() {
       recherchesstockees.innerHTML += '<p class="titre-recherche"><label>' + object.recherches[i].val + '</label><img src="img/croix30.jpg" class="icone-croix"/></p>';
       titrerecherche[i].setAttribute("onclick", "selectionner_recherche(this)");
       iconecroix[i].setAttribute("onclick", "supprimer_recherche(this)");
+      recherches.push(object.recherches[i].val);
   }
 }
 
@@ -89,12 +96,41 @@ function maj_resultats(res) {
 
 
 function sauver_nouvelle(elt) {
-	//TODO ...
+    var parent = elt.parentNode;
+    elt.setAttribute("onclick", "supprimer_nouvelle(this)");
+    elt.firstChild.setAttribute("src","img/disk15.jpg");
+    var offre = new Object();
+    offre.titre = parent.querySelector(".titre_news").textContent;
+    offre.date = parent.querySelector(".date_news").textContent;
+    offre.url = parent.querySelector(".titre_news").getAttribute("href");
+    if (indexOfResultat(recherche_courante_news,offre)==-1) {
+      recherche_courante_news.push(offre);
+      var json = {"offre": recherche_courante_news};
+      json = JSON.stringify(json);
+      localStorage.setItem("offres",json);
+    }
 }
 
 
 function supprimer_nouvelle(elt) {
-	//TODO ...
+  var parent = elt.parentNode;
+  elt.setAttribute("onclick", "sauver_nouvelle(this)");
+  elt.firstChild.setAttribute("src","img/horloge15.jpg");
+  var offre = new Object();
+  offre.titre = parent.querySelector(".titre_news").textContent;
+  offre.date = parent.querySelector(".date_news").textContent;
+  offre.url = parent.querySelector(".titre_news").getAttribute("href");
+  var index = indexOfResultat(recherche_courante_news,offre);
+  if(index!=-1){
+    recherche_courante_news.splice(index,1);
+    var json = {"offre": recherche_courante_news};
+    json = JSON.stringify(json);
+    if (recherche_courante_news!=0) {
+      localStorage.setItem("offres",json);
+    } else {
+      localStorage.removeItem("offres");
+    }
+  }
 }
 
 function toJSON() {
