@@ -74,16 +74,16 @@ function rechercher_nouvelles() {
 
   // xhr.open("GET", "calcul-serveur.php?data=" + resultat, true);
   // xhr.send(null);
-  ajax_get_request(maj_resultats, "https://carl-vincent.fr/search-internships.php?data=grenoble?data=" + res, true);
+  ajax_get_request(maj_resultats, "https://carl-vincent.fr/search-internships.php?data=" + res, true);
 }
 
 
 function maj_resultats(res) {
-  var div_wait = document.getElementById("wait");
   div_wait.style.display = "none";
+  var object = JSON.parse(res);
 
   for (var i = 0; i < res.length; i++) {
-    div_resultats.innerHTML += '<p class="titre_result"><a class="titre_news" href="'+ res.url + '" target="_blank">'+ res.titre + '</a><span class="date_news">'+ res.date + '</span><span class="action_news" onclick="sauver_nouvelle(this)"><img src="images/horloge15.jpg"/></span></p>';
+    div_resultats.innerHTML += '<p class="titre_result"><a class="titre_news" href="'+ object[i].url + '" target="_blank">'+ object[i].titre + '</a><span class="date_news">'+ formatDate(object[i].date) + '</span><span class="action_news" onclick="sauver_nouvelle(this)"><img src="images/horloge15.jpg"/></span></p>';
   }
 }
 
