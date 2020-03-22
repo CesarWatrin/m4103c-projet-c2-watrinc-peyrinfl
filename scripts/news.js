@@ -72,8 +72,6 @@ function rechercher_nouvelles() {
   var res = document.getElementById('zone_saisie').value;
   res = encodeURIComponent(res);
 
-  // xhr.open("GET", "calcul-serveur.php?data=" + resultat, true);
-  // xhr.send(null);
   ajax_get_request(maj_resultats, "https://carl-vincent.fr/search-internships.php?data=grenoble?data=" + res, true);
 }
 
