@@ -9,6 +9,8 @@ var zone_saisie=document.getElementById("zone_saisie");
 var recherchesstockees=document.getElementById("recherches-stockees");
 var titrerecherche=document.getElementsByClassName("titre-recherche");
 var iconecroix=document.getElementsByClassName("icone-croix");
+var div_resultats = document.getElementById("resultats");
+var div_wait = document.getElementById("wait");
 var nb = 0;
 
 function ajouter_recherche() {
@@ -63,13 +65,11 @@ function init() {
 
 
 function rechercher_nouvelles() {
-	var div_resultats = document.getElementById("resultats");
   div_resultats.innerHTML = "";
 
-  var div_wait = document.getElementById("wait");
   div_wait.style.display = "block";
 
-  var res = document.getElementById('zone_saisie').value;
+  var res = zone_saisie.value;
   res = encodeURIComponent(res);
 
   ajax_get_request(maj_resultats, "https://carl-vincent.fr/search-internships.php?data=grenoble?data=" + res, true);
@@ -80,7 +80,9 @@ function maj_resultats(res) {
   var div_wait = document.getElementById("wait");
   div_wait.style.display = "none";
 
-
+  for (var i = 0; i < res.length; i++) {
+    div_resultats.innerHTML += '<p class="titre_result"><a class="titre_news" href="'+ res.url + '" target="_blank">'+ res.titre + '</a><span class="date_news">'+ res.date + '</span><span class="action_news" onclick="sauver_nouvelle(this)"><img src="images/horloge15.jpg"/></span></p>';
+  }
 }
 
 
