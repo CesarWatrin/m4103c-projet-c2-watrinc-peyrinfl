@@ -31,15 +31,14 @@ function ajouter_recherche() {
 }
 
 function supprimer_recherche(elt) {
-  // Suppresion de l'élement html correspondant à la recherche
+  // Suppression de l'élement html correspondant à la recherche
 	var parent = elt.parentElement;
   var upParent = parent.parentElement;
   upParent.removeChild(parent);
 
-  // Suppression de l'élement dans le tableau de recherche
+  // Suppression de l'élement dans le tableau de recherches et dans le localStorage
   var ind = recherches.indexOf(elt);
   recherches.splice(ind, 1);
-
   nb--;
   var etat = toJSON();
   localStorage.setItem("recherches",etat);
@@ -49,6 +48,16 @@ function supprimer_recherche(elt) {
 function selectionner_recherche(elt) {
   zone_saisie.value = elt.textContent;
   recherche_courante = elt.textContent;
+
+  recherches_cookie = JSON.parse(localStorage.getItem("recherches"));
+
+  // Récupération de l'objet recherche associé à la recherche
+  for(var i = 0; i < recherches_cookie.nombre; i++) {
+    if (recherches_cookie.recherches[i].val = recherche_courante) {
+      recherche_courante_news = recherches_cookie.recherches[i];
+    }
+  }
+
 }
 
 
@@ -66,7 +75,6 @@ function init() {
 
 function rechercher_nouvelles() {
   div_resultats.innerHTML = "";
-
   div_wait.style.display = "block";
 
   var res = zone_saisie.value;
@@ -89,12 +97,12 @@ function maj_resultats(res) {
 
 
 function sauver_nouvelle(elt) {
-	//TODO ...
+
 }
 
 
 function supprimer_nouvelle(elt) {
-	//TODO ...
+
 }
 
 function toJSON() {
