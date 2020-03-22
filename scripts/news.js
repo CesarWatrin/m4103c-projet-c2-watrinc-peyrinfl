@@ -74,7 +74,7 @@ function rechercher_nouvelles() {
 
   // xhr.open("GET", "calcul-serveur.php?data=" + resultat, true);
   // xhr.send(null);
-  
+
 }
 
 
@@ -136,3 +136,13 @@ function ajax_get_request(callback, url, async) {
       callback(xhr.responseText);
     }
   };
+
+  // Initialisation de l'objet puis envoi de la requête
+  xhr.open("GET", url, async);
+  xhr.send();
+
+  /*
+    Pour plus de détails sur l'objet XMLHttpRequest (XHR) et sur les appels AJAX :
+    https://openclassrooms.com/fr/courses/245710-ajax-et-lechange-de-donnees-en-javascript/244798-lobjet-xmlhttprequest
+  */
+}
