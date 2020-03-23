@@ -61,8 +61,15 @@ function selectionner_recherche(elt) {
 function init() {
   var mesRecherches = localStorage.getItem("recherches");
   var object = JSON.parse(mesRecherches);
-  nb += object.nombre;
-  for (var i = 0; i < object.nombre; i++) {
+  var nbTemp = 0;
+  try {
+    nbTemp = object.nombre;
+  } catch (err) {
+    ; //do nothing
+  } finally {
+    nb += nbTemp;
+  }
+  for (var i = 0; i < nb; i++) {
       recherchesstockees.innerHTML += '<p class="titre-recherche"><label>' + object.recherches[i].val + '</label><img src="img/croix30.jpg" class="icone-croix"/></p>';
       titrerecherche[i].setAttribute("onclick", "selectionner_recherche(this)");
       iconecroix[i].setAttribute("onclick", "supprimer_recherche(this)");
@@ -105,9 +112,9 @@ function sauver_nouvelle(elt) {
     offre.url = parent.querySelector(".titre_news").getAttribute("href");
     if (indexOfResultat(recherche_courante_news,offre)==-1) {
       recherche_courante_news.push(offre);
-      var json = {"offre": recherche_courante_news};
+      var json = {recherche_courante_news};
       json = JSON.stringify(json);
-      localStorage.setItem("offres",json);
+      localStorage.setItem(zone_saisie.value,json);
     }
 }
 
@@ -123,12 +130,12 @@ function supprimer_nouvelle(elt) {
   var index = indexOfResultat(recherche_courante_news,offre);
   if(index!=-1){
     recherche_courante_news.splice(index,1);
-    var json = {"offre": recherche_courante_news};
+    var json = {recherche_courante_news};
     json = JSON.stringify(json);
     if (recherche_courante_news!=0) {
-      localStorage.setItem("offres",json);
+      localStorage.setItem(zone_saisie.value,json);
     } else {
-      localStorage.removeItem("offres");
+      localStorage.removeItem(zone_saisie.value);
     }
   }
 }
