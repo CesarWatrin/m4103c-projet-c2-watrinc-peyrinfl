@@ -32,15 +32,14 @@ function ajouter_recherche() {
 }
 
 function supprimer_recherche(elt) {
-  // Suppresion de l'élement html correspondant à la recherche
+  // Suppression de l'élement html correspondant à la recherche
 	var parent = elt.parentElement;
   var upParent = parent.parentElement;
   upParent.removeChild(parent);
 
-  // Suppression de l'élement dans le tableau de recherche
+  // Suppression de l'élement dans le tableau de recherches et dans le localStorage
   var ind = recherches.indexOf(elt);
   recherches.splice(ind, 1);
-
   nb--;
   var etat = toJSON();
   if (recherches!=0) {
@@ -55,6 +54,16 @@ function supprimer_recherche(elt) {
 function selectionner_recherche(elt) {
   zone_saisie.value = elt.textContent;
   recherche_courante = elt.textContent;
+
+  recherches_cookie = JSON.parse(localStorage.getItem("recherches"));
+
+  // Récupération de l'objet recherche associé à la recherche
+  for(var i = 0; i < recherches_cookie.nombre; i++) {
+    if (recherches_cookie.recherches[i].val = recherche_courante) {
+      recherche_courante_news = recherches_cookie.recherches[i];
+    }
+  }
+
 }
 
 
@@ -80,7 +89,6 @@ function init() {
 
 function rechercher_nouvelles() {
   div_resultats.innerHTML = "";
-
   div_wait.style.display = "block";
 
   var res = zone_saisie.value;
@@ -103,6 +111,9 @@ function maj_resultats(res) {
 
 
 function sauver_nouvelle(elt) {
+<<<<<<< HEAD
+
+=======
     var parent = elt.parentNode;
     elt.setAttribute("onclick", "supprimer_nouvelle(this)");
     elt.firstChild.setAttribute("src","img/disk15.jpg");
@@ -116,10 +127,14 @@ function sauver_nouvelle(elt) {
       json = JSON.stringify(json);
       localStorage.setItem(zone_saisie.value,json);
     }
+>>>>>>> b58712f75def3e71d0eaf540cf2e349e75d31943
 }
 
 
 function supprimer_nouvelle(elt) {
+<<<<<<< HEAD
+
+=======
   var parent = elt.parentNode;
   elt.setAttribute("onclick", "sauver_nouvelle(this)");
   elt.firstChild.setAttribute("src","img/horloge15.jpg");
@@ -138,6 +153,7 @@ function supprimer_nouvelle(elt) {
       localStorage.removeItem(zone_saisie.value);
     }
   }
+>>>>>>> b58712f75def3e71d0eaf540cf2e349e75d31943
 }
 
 function toJSON() {
