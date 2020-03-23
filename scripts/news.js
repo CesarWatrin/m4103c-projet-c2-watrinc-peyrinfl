@@ -55,17 +55,16 @@ function selectionner_recherche(elt) {
   zone_saisie.value = elt.textContent;
   recherche_courante = elt.textContent;
 
-  recherches_cookie = JSON.parse(localStorage.getItem("recherches"));
+  var offres = JSON.parse(localStorage.getItem(zone_saisie.value));
 
+  //on vide les résultats actuels
+  div_resultats.innerHTML = "";
   // Récupération de l'objet recherche associé à la recherche
-  // for(var i = 0; i < recherches_cookie.nombre; i++) {
-  //   if (recherches_cookie.recherches[i].val = recherche_courante) {
-  //     recherche_courante_news = recherches_cookie.recherches[i];
-  //   }
-  // }
+  for (var i = 0; i < offres.recherche_courante_news.length; i++) {
+    div_resultats.innerHTML += '<p class="titre_result"><a class="titre_news" href="'+ offres.recherche_courante_news[i].url + '" target="_blank">'+ offres.recherche_courante_news[i].titre + '</a><span class="date_news">'+ offres.recherche_courante_news[i].date + '</span><span class="action_news" onclick="sauver_nouvelle(this)"><img src="img/disk15.jpg"/></span></p>';
+  }
 
 }
-
 
 function init() {
   var mesRecherches = localStorage.getItem("recherches");
