@@ -58,11 +58,19 @@ function selectionner_recherche(elt) {
   recherches_cookie = JSON.parse(localStorage.getItem("recherches"));
 
   // Récupération de l'objet recherche associé à la recherche
+<<<<<<< HEAD
   // for(var i = 0; i < recherches_cookie.nombre; i++) {
   //   if (recherches_cookie.recherches[i].val = recherche_courante) {
   //     recherche_courante_news = recherches_cookie.recherches[i];
   //   }
   // }
+=======
+  for(var i = 0; i < recherches_cookie.nombre; i++) {
+    if (recherches_cookie.recherches[i].val = recherche_courante) {
+      recherche_courante_news = recherches_cookie.recherches[i];
+    }
+  }
+>>>>>>> e7563ca3cd67edece1c1ec40aaf6649cd4e9fd44
 
 }
 
@@ -111,6 +119,9 @@ function maj_resultats(res) {
 
 
 function sauver_nouvelle(elt) {
+<<<<<<< HEAD
+
+=======
     var parent = elt.parentNode;
     elt.setAttribute("onclick", "supprimer_nouvelle(this)");
     elt.firstChild.setAttribute("src","img/disk15.jpg");
@@ -124,11 +135,18 @@ function sauver_nouvelle(elt) {
       json = JSON.stringify(json);
       localStorage.setItem(zone_saisie.value,json);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> b58712f75def3e71d0eaf540cf2e349e75d31943
+>>>>>>> e7563ca3cd67edece1c1ec40aaf6649cd4e9fd44
 }
 
 
 function supprimer_nouvelle(elt) {
+<<<<<<< HEAD
+
+=======
   var parent = elt.parentNode;
   elt.setAttribute("onclick", "sauver_nouvelle(this)");
   elt.firstChild.setAttribute("src","img/horloge15.jpg");
@@ -147,6 +165,7 @@ function supprimer_nouvelle(elt) {
       localStorage.removeItem(zone_saisie.value);
     }
   }
+>>>>>>> b58712f75def3e71d0eaf540cf2e349e75d31943
 }
 
 function toJSON() {
