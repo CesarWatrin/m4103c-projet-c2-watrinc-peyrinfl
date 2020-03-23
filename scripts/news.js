@@ -60,10 +60,11 @@ function selectionner_recherche(elt) {
   //on vide les résultats actuels
   div_resultats.innerHTML = "";
   // Récupération de l'objet recherche associé à la recherche
-  for (var i = 0; i < offres.recherche_courante_news.length; i++) {
-    div_resultats.innerHTML += '<p class="titre_result"><a class="titre_news" href="'+ offres.recherche_courante_news[i].url + '" target="_blank">'+ offres.recherche_courante_news[i].titre + '</a><span class="date_news">'+ offres.recherche_courante_news[i].date + '</span><span class="action_news" onclick="sauver_nouvelle(this)"><img src="img/disk15.jpg"/></span></p>';
+  if (offres!=null) {
+    for (var i = 0; i < offres.recherche_courante_news.length; i++) {
+      div_resultats.innerHTML += '<p class="titre_result"><a class="titre_news" href="'+ offres.recherche_courante_news[i].url + '" target="_blank">'+ offres.recherche_courante_news[i].titre + '</a><span class="date_news">'+ offres.recherche_courante_news[i].date + '</span><span class="action_news" onclick="sauver_nouvelle(this)"><img src="img/disk15.jpg"/></span></p>';
+    }
   }
-
 }
 
 function init() {
@@ -96,6 +97,10 @@ function rechercher_nouvelles() {
   // xhr.open("GET", "calcul-serveur.php?data=" + resultat, true);
   // xhr.send(null);
   ajax_get_request(maj_resultats, "https://carl-vincent.fr/search-internships.php?data=" + res, true);
+
+  if(localStorage.getItem(localStorage.key(1))!=null){
+    recherche_courante_news = localStorage.getItem(localStorage.key(1));
+  }
 }
 
 
@@ -104,7 +109,11 @@ function maj_resultats(res) {
   var object = JSON.parse(res);
 
   for (var i = 0; i < object.length; i++) {
-    div_resultats.innerHTML += '<p class="titre_result"><a class="titre_news" href="'+ object[i].url + '" target="_blank">'+ object[i].titre + '</a><span class="date_news">'+ formatDate(object[i].date) + '</span><span class="action_news" onclick="sauver_nouvelle(this)"><img src="img/horloge15.jpg"/></span></p>';
+    if(indexOfResultat(recherche_courante_news,object[i])>=0){
+      div_resultats.innerHTML += '<p class="titre_result"><a class="titre_news" href="'+ object[i].url + '" target="_blank">'+ object[i].titre + '</a><span class="date_news">'+ formatDate(object[i].date) + '</span><span class="action_news" onclick="sauver_nouvelle(this)"><img src="img/disk15.jpg"/></span></p>';
+    } else {
+      div_resultats.innerHTML += '<p class="titre_result"><a class="titre_news" href="'+ object[i].url + '" target="_blank">'+ object[i].titre + '</a><span class="date_news">'+ formatDate(object[i].date) + '</span><span class="action_news" onclick="sauver_nouvelle(this)"><img src="img/horloge15.jpg"/></span></p>';
+    }
   }
 }
 
