@@ -50,7 +50,6 @@ function supprimer_recherche(elt) {
   // localStorage.setItem("recherches",etat);
 }
 
-
 function selectionner_recherche(elt) {
   zone_saisie.value = elt.textContent;
   recherche_courante = elt.textContent;
@@ -86,7 +85,6 @@ function init() {
   }
 }
 
-
 function rechercher_nouvelles() {
   div_resultats.innerHTML = "";
   div_wait.style.display = "block";
@@ -103,7 +101,6 @@ function rechercher_nouvelles() {
   }
 }
 
-
 function maj_resultats(res) {
   div_wait.style.display = "none";
   var object = JSON.parse(res);
@@ -116,7 +113,6 @@ function maj_resultats(res) {
     }
   }
 }
-
 
 function sauver_nouvelle(elt) {
     var parent = elt.parentNode;
@@ -133,7 +129,6 @@ function sauver_nouvelle(elt) {
       localStorage.setItem(zone_saisie.value,json);
     }
 }
-
 
 function supprimer_nouvelle(elt) {
   var parent = elt.parentNode;
@@ -175,33 +170,20 @@ function toJSON() {
 }
 
 function ajax_get_request(callback, url, async) {
-  // Instanciation d'un objet XHR
   var xhr = new XMLHttpRequest();
-
-  // Définition de la fonction à exécuter à chaque changement d'état
   xhr.onreadystatechange = function(){
-    /* readyState permet de connaître l'état de la requête :
-      => 0: L'objet XHR a été créé, mais pas encore initialisé
-      => 1: L'objet XHR a été créé, mais pas encore envoyé
-      => 2: La méthode send vient d'être appelée
-      => 3: Le serveur traite les informations et a commencé à renvoyer des données
-      => 4: Le serveur a fini son travail, et toutes les données sont réceptionnées
-    */
     if (callback && xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-      // Si une fonction callback est définie + que le serveur a fini son travail
-      // + que le code d'état indique que tout s'est bien passé
-      // => On appelle la fonction callback en passant en paramètre
-      //		les données récupérées sous forme de texte brut
       callback(xhr.responseText);
     }
   };
-
-  // Initialisation de l'objet puis envoi de la requête
   xhr.open("GET", url, async);
   xhr.send();
-
-  /*
-    Pour plus de détails sur l'objet XMLHttpRequest (XHR) et sur les appels AJAX :
-    https://openclassrooms.com/fr/courses/245710-ajax-et-lechange-de-donnees-en-javascript/244798-lobjet-xmlhttprequest
-  */
 }
+
+//Appuyer sur entrer pour rechercher
+$(document).keypress(function(event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13' && zone_saisie.value != "") {
+                    rechercher_nouvelles();
+                }
+});
