@@ -61,7 +61,7 @@ function selectionner_recherche(elt) {
   // Récupération de l'objet recherche associé à la recherche
   if (offres!=null) {
     for (var i = 0; i < offres.recherche_courante_news.length; i++) {
-      div_resultats.innerHTML += '<p class="titre_result"><a class="titre_news" href="'+ offres.recherche_courante_news[i].url + '" target="_blank">'+ offres.recherche_courante_news[i].titre + '</a><span class="date_news">'+ offres.recherche_courante_news[i].date + '</span><span class="action_news" onclick="sauver_nouvelle(this)"><img src="img/disk15.jpg"/></span></p>';
+      div_resultats.innerHTML += '<p class="titre_result"><a class="titre_news" href="'+ offres.recherche_courante_news[i].url + '" target="_blank">'+ offres.recherche_courante_news[i].titre + '</a><span class="date_news">'+ offres.recherche_courante_news[i].date + '</span><span class="action_news" onclick="supprimer_nouvelle(this)"><img src="img/disk15.jpg"/></span></p>';
     }
   }
 }
@@ -96,9 +96,19 @@ function rechercher_nouvelles() {
   // xhr.send(null);
   ajax_get_request(maj_resultats, "https://carl-vincent.fr/search-internships.php?data=" + res, true);
 
-  if(localStorage.getItem(localStorage.key(1))!=null){
-    recherche_courante_news = localStorage.getItem(localStorage.key(1));
+  var offres = JSON.parse(localStorage.getItem(zone_saisie.value));
+
+  if (offres!=null) {
+    for (var i = 0; i < offres.recherche_courante_news.length; i++) {
+      console.log(offres.recherche_courante_news[i]);
+      recherche_courante_news.push(offres.recherche_courante_news[i]);
+      console.log(recherche_courante_news[i]);
+    }
   }
+
+  // if(localStorage.getItem(localStorage.key(1))!=null){
+  //   recherche_courante_news = localStorage.getItem(localStorage.key(1));
+  // }
 }
 
 function maj_resultats(res) {
@@ -106,12 +116,21 @@ function maj_resultats(res) {
   var object = JSON.parse(res);
 
   for (var i = 0; i < object.length; i++) {
-    if(indexOfResultat(recherche_courante_news,object[i])>=0){
-      div_resultats.innerHTML += '<p class="titre_result"><a class="titre_news" href="'+ object[i].url + '" target="_blank">'+ object[i].titre + '</a><span class="date_news">'+ formatDate(object[i].date) + '</span><span class="action_news" onclick="sauver_nouvelle(this)"><img src="img/disk15.jpg"/></span></p>';
+    if(eval(object[i])==true){
+      div_resultats.innerHTML += '<p class="titre_result"><a class="titre_news" href="'+ object[i].url + '" target="_blank">'+ object[i].titre + '</a><span class="date_news">'+ formatDate(object[i].date) + '</span><span class="action_news" onclick="supprimer_nouvelle(this)"><img src="img/disk15.jpg"/></span></p>';
     } else {
       div_resultats.innerHTML += '<p class="titre_result"><a class="titre_news" href="'+ object[i].url + '" target="_blank">'+ object[i].titre + '</a><span class="date_news">'+ formatDate(object[i].date) + '</span><span class="action_news" onclick="sauver_nouvelle(this)"><img src="img/horloge15.jpg"/></span></p>';
     }
   }
+}
+
+function eval(object) {
+  for (var i = 0; i < recherche_courante_news.length; i++) {
+    if (recherche_courante_news[i].titre==decodeHtmlEntities(object.titre)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 function sauver_nouvelle(elt) {
