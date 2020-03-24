@@ -100,15 +100,9 @@ function rechercher_nouvelles() {
 
   if (offres!=null) {
     for (var i = 0; i < offres.recherche_courante_news.length; i++) {
-      console.log(offres.recherche_courante_news[i]);
       recherche_courante_news.push(offres.recherche_courante_news[i]);
-      console.log(recherche_courante_news[i]);
     }
   }
-
-  // if(localStorage.getItem(localStorage.key(1))!=null){
-  //   recherche_courante_news = localStorage.getItem(localStorage.key(1));
-  // }
 }
 
 function maj_resultats(res) {
