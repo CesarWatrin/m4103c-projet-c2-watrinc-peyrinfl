@@ -70,7 +70,7 @@ function selectionner_recherche(elt) {
 }
 
 function countSearch() {
-    titre[2].textContent = "recherches stockées("+action_news.length+")";
+    titre[2].textContent = "résultats("+action_news.length+")";
 }
 
 function countSave() {
