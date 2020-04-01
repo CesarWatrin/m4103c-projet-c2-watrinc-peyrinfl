@@ -70,7 +70,11 @@ function selectionner_recherche(elt) {
 }
 
 function countSearch() {
+  if (nb != 0) {
     titre[2].textContent = "résultats("+action_news.length+")";
+  } else {
+    titre[2].textContent = "resultats";
+  }
 }
 
 function countSave() {
