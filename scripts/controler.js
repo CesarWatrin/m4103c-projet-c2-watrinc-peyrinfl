@@ -145,3 +145,10 @@ controler.supprimer_nouvelle = function(elt) {
     }
   }
 }
+//Appuyer sur entrer pour rechercher
+$(document).keypress(function(event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13' && zone_saisie.value != "") {
+                    controler.rechercher_nouvelles();
+                }
+});
